@@ -1,0 +1,68 @@
+import React from "react";
+import {
+  ImageBackground,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  View,
+  ScrollView,
+} from "react-native";
+import { useNavigation, useNavigationBuilder } from "@react-navigation/native";
+import backgroundImage from "../assets/images/feed-background.jpg";
+import FeedComponent from "../components/FeedComponent";
+import profilePic from "../assets/images/miffywithdog.jpeg";
+import NavBar from "../components/NavBar";
+
+const FeedScreen = ({ navigation }) => {
+  return (
+    <>
+      <ImageBackground style={styles.background} source={backgroundImage}>
+        <TouchableOpacity style={styles.profile}>
+          <Image source={profilePic} style={styles.profilePic} />
+        </TouchableOpacity>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.items}>
+            <FeedComponent />
+            <FeedComponent />
+            <FeedComponent />
+            <FeedComponent />
+            <FeedComponent />
+          </View>
+        </ScrollView>
+      </ImageBackground>
+      <View>
+        <NavBar navigation={navigation} />
+      </View>
+    </>
+  );
+};
+
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  profile: {
+    position: "absolute",
+    top: 60,
+    right: 20,
+    zIndex: 1,
+  },
+  profilePic: {
+    width: 55,
+    height: 55,
+    borderRadius: 50,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    paddingTop: 130,
+  },
+  items: {
+    alignItems: "center",
+  },
+});
+
+export default FeedScreen;

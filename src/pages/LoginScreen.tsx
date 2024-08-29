@@ -12,10 +12,8 @@ import {
 import backgroundImage from "../assets/images/login-background.jpg";
 import openEnvelopeImage from "../assets/images/opened-heart-envelope.png";
 import leftArrowImage from "../assets/images/left-arrow.png";
-import { useNavigation, useNavigationBuilder } from "@react-navigation/native";
 
-const LoginScreen = () => {
-  const navigation = useNavigation();
+const LoginScreen = ({ navigation }) => {
   return (
     <ImageBackground
       source={backgroundImage}
@@ -47,7 +45,10 @@ const LoginScreen = () => {
               keyboardType="numeric"
             />
           </SafeAreaView>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("FeedScreen")}
+          >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
