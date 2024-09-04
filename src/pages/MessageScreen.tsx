@@ -12,17 +12,13 @@ import MessageComponent from "../components/MessageComponent";
 import NavBar from "../components/NavBar";
 import MailboxImage from "../assets/images/mailbox.png";
 import leftArrowImage from "../assets/images/left-arrow.png";
+import BackButtonComponent from "../components/BackButtonComponent";
 
 const MessageScreen = ({ navigation }) => {
   return (
     <>
       <ImageBackground style={styles.background} source={backgroundImage}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Image style={styles.backButtonImage} source={leftArrowImage} />
-        </TouchableOpacity>
+        <BackButtonComponent navigation={navigation} />
         <Image source={MailboxImage} style={styles.mailboxIcon} />
         <View style={styles.messageContainer}>
           <ScrollView contentContainerStyle={styles.scrollContainer}>

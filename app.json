@@ -4,10 +4,10 @@
     "slug": "DailyDump",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "",
         "backgroundColor": "#ffffff"
       }
     },
@@ -25,9 +25,9 @@
     },
     "plugins": [
       [
-        "expo-font",
+        "expo-image-picker",
         {
-          "Alike-Regular": "./src/assets/fonts/AlikeRegular"
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
     ]

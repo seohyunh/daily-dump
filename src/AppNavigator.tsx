@@ -5,6 +5,8 @@ import StartScreen from "./pages/StartScreen";
 import LoginScreen from "./pages/LoginScreen";
 import FeedScreen from "./pages/FeedScreen";
 import MessageScreen from "./pages/MessageScreen";
+import CreateScreen from "./pages/CreateScreen";
+import JournalEntryScreen from "./pages/JournalEntryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -13,9 +15,22 @@ const AppNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="StartScreen" component={StartScreen} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{ animation: "none" }}
+        />
         <Stack.Screen name="FeedScreen" component={FeedScreen} />
         <Stack.Screen name="MessageScreen" component={MessageScreen} />
+        <Stack.Screen
+          name="CreateScreen"
+          component={CreateScreen}
+          options={{ animation: "slide_from_bottom" }}
+        />
+        <Stack.Screen
+          name="JournalEntryScreen"
+          component={JournalEntryScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

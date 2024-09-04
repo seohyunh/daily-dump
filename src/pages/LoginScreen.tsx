@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import backgroundImage from "../assets/images/login-background.jpg";
 import openEnvelopeImage from "../assets/images/opened-heart-envelope.png";
-import leftArrowImage from "../assets/images/left-arrow.png";
+import BackButtonComponent from "../components/BackButtonComponent";
 
 const LoginScreen = ({ navigation }) => {
   return (
@@ -20,12 +20,7 @@ const LoginScreen = ({ navigation }) => {
       style={styles.background}
       resizeMode="cover"
     >
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Image style={styles.backButtonImage} source={leftArrowImage} />
-      </TouchableOpacity>
+      <BackButtonComponent navigation={navigation} />
       <View style={styles.items}>
         <Text style={styles.title}>Daily Dump</Text>
         <Image style={styles.envelope} source={openEnvelopeImage} />
