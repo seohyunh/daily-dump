@@ -20,15 +20,17 @@ const FeedScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.profile}>
           <Image source={profilePic} style={styles.profilePic} />
         </TouchableOpacity>
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.items}>
-            <FeedComponent />
-            <FeedComponent />
-            <FeedComponent />
-            <FeedComponent />
-            <FeedComponent />
-          </View>
-        </ScrollView>
+        <View style={styles.feed}>
+          <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <View style={styles.items}>
+              <FeedComponent />
+              <FeedComponent />
+              <FeedComponent />
+              <FeedComponent />
+              <FeedComponent />
+            </View>
+          </ScrollView>
+        </View>
       </ImageBackground>
       <View>
         <NavBar navigation={navigation} />
@@ -54,11 +56,14 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 50,
   },
+  feed: {
+    height: "80%",
+    marginTop: 70,
+  },
   scrollContainer: {
     flexGrow: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingTop: 130,
   },
   items: {
     alignItems: "center",

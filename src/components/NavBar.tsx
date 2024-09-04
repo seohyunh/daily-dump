@@ -10,7 +10,7 @@ const NavBar = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.navigate("FeedScreen")}>
         <Image source={closedEnvelope} style={styles.envelopeIcon} />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("CreateScreen")}>
         <Image source={quill} style={styles.quillIcon} />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("MessageScreen")}>
