@@ -17,7 +17,10 @@ const FeedScreen = ({ navigation }) => {
   return (
     <>
       <ImageBackground style={styles.background} source={backgroundImage}>
-        <TouchableOpacity style={styles.profile}>
+        <TouchableOpacity
+          style={styles.profile}
+          onPress={() => navigation.navigate("ProfileScreen")}
+        >
           <Image source={profilePic} style={styles.profilePic} />
         </TouchableOpacity>
         <View style={styles.feed}>

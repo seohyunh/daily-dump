@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
   },
   mailboxIcon: {
     width: 76,
-    height: 61,
-    marginTop: 40,
+    height: 70,
+    marginTop: 50,
   },
   messageContainer: {
     height: "80%",
