@@ -3,20 +3,42 @@ import { View, StyleSheet, Image, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import postImage from "../assets/images/filler-post-image.jpg";
 
-const FeedComponent = () => {
+const FeedComponent = ({ title, coverImage, description, time }) => {
+  const formatDateTime = (isoString) => {
+    const date = new Date(isoString);
+
+    const formattedDate = date.toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+    });
+
+    const formattedTime = date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      hour12: true,
+    });
+
+    return { formattedDate, formattedTime };
+  };
+
+  const { formattedDate, formattedTime } = formatDateTime(time);
   return (
     <LinearGradient colors={["#E99E9E", "#F07474"]} style={styles.background}>
       <View style={styles.feedItem}>
         <View style={styles.imageContainer}>
-          <Image source={postImage} style={styles.image} resizeMode="cover" />
+          <Image
+            source={{ uri: coverImage }}
+            style={styles.image}
+            resizeMode="cover"
+          />
         </View>
         <View style={styles.text}>
           <View style={styles.textTitle}>
-            <Text>shibuya crossing!</Text>
+            <Text>{title}</Text>
           </View>
           <View style={styles.textDesc}>
-            <Text>sun, aug 14</Text>
-            <Text>6:00pm</Text>
+            <Text>{formattedDate}</Text>
+            <Text>{formattedTime}</Text>
             <Text>lemonyum</Text>
           </View>
         </View>

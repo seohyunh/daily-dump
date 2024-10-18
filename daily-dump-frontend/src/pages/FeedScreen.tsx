@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
@@ -12,8 +12,28 @@ import backgroundImage from "../assets/images/feed-background.jpg";
 import FeedComponent from "../components/FeedComponent";
 import profilePic from "../assets/images/miffywithdog.jpeg";
 import NavBar from "../components/NavBar";
+import { getAllPosts } from "../services/api";
+import { useFocusEffect } from "@react-navigation/native";
 
 const FeedScreen = ({ navigation }) => {
+  const [posts, setPosts] = useState([]);
+  useFocusEffect(
+    useCallback(() => {
+      const fetchContent = async () => {
+        try {
+          const fetchedPosts = await getAllPosts();
+          setPosts(fetchedPosts); // Set the posts
+        } catch (error) {
+          console.error("Could not fetch all posts", error.response?.data);
+        }
+      };
+
+      fetchContent(); // Fetch posts when screen is focused
+
+      return () => {};
+    }, []) // Empty dependency array to avoid re-running unnecessarily
+  );
+
   return (
     <>
       <ImageBackground style={styles.background} source={backgroundImage}>
@@ -26,11 +46,24 @@ const FeedScreen = ({ navigation }) => {
         <View style={styles.feed}>
           <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.items}>
-              <FeedComponent />
-              <FeedComponent />
-              <FeedComponent />
-              <FeedComponent />
-              <FeedComponent />
+              {posts &&
+                posts
+                  .sort(
+                    (a, b) =>
+                      new Date(a.created_at).getTime() -
+                      new Date(b.created_at).getTime()
+                  )
+                  .map((post, index) => {
+                    return (
+                      <FeedComponent
+                        key={index}
+                        title={post.title}
+                        coverImage={post.cover_photo}
+                        description={post.description}
+                        time={post.created_at}
+                      />
+                    );
+                  })}
             </View>
           </ScrollView>
         </View>

@@ -17,6 +17,7 @@ import {
 import BackgroundImage from "../assets/images/orange-background.png";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as ImagePicker from "expo-image-picker";
+import { createPost, addPostContent } from "../services/api";
 
 const CreateScreen = ({ navigation }) => {
   const [keyboardShown, setKeyboardShown] = useState(false);
@@ -29,6 +30,8 @@ const CreateScreen = ({ navigation }) => {
       content: "",
     },
   ]);
+  const [title, setTitle] = useState("");
+  const [coverImage, setCoverImage] = useState("");
 
   const scrollRef = useRef<ScrollView>(null);
   const latestTextInputRef = useRef<TextInput>(null);
@@ -66,6 +69,10 @@ const CreateScreen = ({ navigation }) => {
       quality: 1,
     });
 
+    if (!coverImage) {
+      setCoverImage(result.assets[0].uri);
+    }
+
     if (!result.canceled) {
       setBlocks((prevBlocks) => {
         const filteredBlocks = prevBlocks.filter(
@@ -89,12 +96,49 @@ const CreateScreen = ({ navigation }) => {
     }
   };
 
+  const handleTitleChange = (text: string) => {
+    setTitle(text);
+  };
+
   const handleTextChange = (index: number, text: string) => {
     setBlocks((prevBlocks) => {
       const newBlocks = [...prevBlocks];
       newBlocks[index].content = text;
       return newBlocks;
     });
+  };
+
+  const handlePostSubmission = async () => {
+    console.log("dump!");
+    // api call to creating a post
+    try {
+      const postData = {
+        title: title,
+        cover_photo: coverImage,
+        short_description: "", // future work: have a pop up before submitting to add a cover photo and description
+      };
+
+      console.log("cover image", coverImage);
+
+      const createdPost = await createPost(postData);
+
+      const post_id = createdPost.id;
+
+      const contentData = {
+        post_id,
+        blocks: blocks.filter((block) => block.content),
+      };
+
+      const addContent = await addPostContent(contentData);
+
+      console.log("post_id", post_id);
+
+      navigation.navigate("JournalEntryScreen", { post_id });
+    } catch (error) {
+      console.error("Failed to create post", error);
+    }
+    // use the id thats returned to create post content
+    // navigate
   };
 
   const scrollToEndOnContentChange = () => {
@@ -133,6 +177,7 @@ const CreateScreen = ({ navigation }) => {
                 placeholder="Title"
                 placeholderTextColor="#373737"
                 multiline={true}
+                onChangeText={(text) => handleTitleChange(text)}
               />
               {blocks.map((block, index) => {
                 return block.type === "text" ? (
@@ -162,7 +207,8 @@ const CreateScreen = ({ navigation }) => {
           <View style={keyboardShown ? styles.menuKeyboard : styles.menu}>
             <TouchableOpacity
               style={styles.postButton}
-              onPress={() => navigation.navigate("JournalEntryScreen")}
+              onPress={() => handlePostSubmission()}
+              // onPress={() => navigation.navigate("JournalEntryScreen")}
             >
               <Text style={styles.postText}>Dump!</Text>
             </TouchableOpacity>
